@@ -13,7 +13,6 @@ def metrics(y_true, y_pred):
     print(f'RMSE = {rmse:0.2f}, R² = {r2*100:0.2f}%')
 
 def train_test_split_by_group(df, group_col='unit_number', test_size=0.2, random_state=42):
-    from sklearn.model_selection import GroupShuffleSplit
     
     gss = GroupShuffleSplit(
         test_size=test_size, 

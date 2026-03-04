@@ -41,34 +41,29 @@ def add_degradation_features(
 
     return df
 
-def calculate_health_index(df, sensor_list, healthy_cycles=25, col_name='health_index'):
+def calculate_health_index(df, sensor_list, healthy_cycles=25):
     health_series = pd.Series(index=df.index, dtype='float64')
-    
+
     for unit in df['unit_number'].unique():
         motor_mask = df['unit_number'] == unit
-        motor_data = df.loc[motor_mask, sensor_list].copy()
-        
+        motor_data = df.loc[motor_mask, sensor_list]
+
         healthy_idx = min(healthy_cycles, len(motor_data))
         healthy_data = motor_data.iloc[:healthy_idx]
-        healthy_mean = healthy_data.mean()
-        
-        data_range = motor_data.max() - motor_data.min()
-        
-        std_values = motor_data.std()
-        
-        safe_divisor = std_values.copy()
 
-        low_std_mask = safe_divisor < 0.01
-        safe_divisor[low_std_mask] = data_range[low_std_mask] * 0.1
-        
-        zero_mask = safe_divisor == 0
-        safe_divisor[zero_mask] = 1
-        
-        if len(motor_data) > 0:
-            normalized_diff = (motor_data - healthy_mean) / safe_divisor
-            health_index = np.sqrt((normalized_diff ** 2).sum(axis=1))
-            health_series.loc[motor_mask] = health_index.values
+        healthy_mean = healthy_data.mean()
+        healthy_std = healthy_data.std()
+
+        safe_divisor = healthy_std.copy()
+
+        low_std_mask = safe_divisor < 1e-6
+        safe_divisor[low_std_mask] = 1e-6
+
+        normalized_diff = (motor_data - healthy_mean) / safe_divisor
+
+        health_index = np.sqrt((normalized_diff ** 2).sum(axis=1))
+
+        health_series.loc[motor_mask] = health_index.values
 
     return health_series
 
-    

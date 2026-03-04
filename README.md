@@ -64,7 +64,7 @@ As seguintes técnicas foram utilizadas:
 
 ## Modelo final
 
-**XGBoost com Randomized Search**  
+**XGBoost**  
 
 Selecionado não pelo menor RMSE absoluto, mas pelo menor gap entre validação direta e cross-validation, indicando melhor capacidade de generalização estrutural.
 
@@ -72,14 +72,13 @@ Selecionado não pelo menor RMSE absoluto, mas pelo menor gap entre validação 
 
 ## Interpretabilidade
 
-A análise de importância de features (SHAP) indica o `health_index_ma10` disparadamente como a variável mais relevante, mostrando que o modelo aprende padrões latentes de degradação, e não apenas sinais brutos de sensores isolados. As demais features relevantes são majoritariamente transformações temporais (ma, diff), evidenciando aprendizado multiescala da degradação ao longo do tempo.
+A análise de importância de features (SHAP) indica `health_index_ma10` e `health_index_original` como as variáveis mais relevantes, mostrando que o modelo aprende padrões latentes de degradação, e não apenas sinais brutos de sensores isolados. As demais features relevantes são majoritariamente transformações temporais (ma, diff), evidenciando aprendizado multiescala da degradação ao longo do tempo.
 
 ---
 
 ## Resultados (ordem de grandeza)
-
 - RMSE: 11.24
-- R² (porcentagem): 92.74%  
+- R² (porcentagem): 92.74 
 
 ---
 
