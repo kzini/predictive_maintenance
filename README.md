@@ -1,3 +1,13 @@
+
+# Project Title
+
+A brief description of what this project does and who it's for
+
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![scikit--learn](https://img.shields.io/badge/scikit--learn-ML-orange)
+![XGBoost](https://img.shields.io/badge/XGBoost-Boosting-red)
+![NASA](https://img.shields.io/badge/Dataset-CMAPSS-darkblue)
+
 # Manutenção preditiva com machine learning  
 ## Prognóstico de falhas em motores utilizando o dataset CMAPSS (NASA)
 
